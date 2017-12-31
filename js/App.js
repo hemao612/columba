@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet,AsyncStorage } from "react-native";
 import CodePush from "react-native-code-push";
 
 import { Container, Content, Text, View } from "native-base";
@@ -8,6 +8,8 @@ import MainStackRouter from "./Routers/MainStackRouter";
 import ProgressBar from "./components/loaders/ProgressBar";
 
 import theme from "./themes/base-theme";
+
+import Parse from "parse/react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -58,6 +60,10 @@ class App extends Component {
         this.setState({ downloadProgress: receivedBytes / totalBytes * 100 });
       }
     );
+
+    Parse.setAsyncStorage(AsyncStorage);
+    Parse.initialize("TheBuilder");
+    Parse.serverURL = 'http://thebuilder.hk/parse'
   }
 
   render() {
